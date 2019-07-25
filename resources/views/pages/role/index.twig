@@ -1,0 +1,57 @@
+{% extends "layouts/app.twig" %}
+{% import 'macros/base.twig' as m %}
+
+{% block title %}{{ __('Role administration') }}{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1>{{ __('Role administration') }}</h1>
+    <div class="form-group">
+        <a href="" class="btn btn-default">
+            {{ m.glyphicon('plus') }} {{ __('New role') }}
+        </a>
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <th>{{ __('Role') }}</th>
+            <th></th>
+        </tr>
+        {% for role in roles %}
+            <tr>
+                <td>
+                    <a href="">{{ role }}</a>
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a href="" class="btn btn-default btn-xs">{{ m.glyphicon('eye-open') }} {{ __('view') }}</a>
+                        <a href="" class="btn btn-default btn-xs">{{ m.glyphicon('edit') }} {{ __('edit') }}</a>
+                        <a href="" class="btn btn-default btn-xs" data-toggle="modal" data-target="#delete-popup-{{ role }}">
+                            {{ m.glyphicon('trash') }} {{ __('delete') }}
+                        </a>
+                    </div>
+
+                    <div class="modal fade" id="delete-popup-{{ role }}" tabindex="-1" role="dialog" aria-labelledby="{{ role }}">
+                        <div class="modal-dialog modal-sm" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">{{ __('Delete role') }}</h4>
+                                </div>
+                                <div class="modal-body">
+                                    {{ __('Dou you really want to delete the role %s?', [role]) }}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('cancel') }}</button>
+                                    <button type="button" class="btn btn-danger">{{ m.glyphicon('trash') }} {{ __('delete') }}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}
