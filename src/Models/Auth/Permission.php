@@ -2,25 +2,29 @@
 
 namespace Engelsystem\Models\Auth;
 
+use Carbon\Carbon;
 use Engelsystem\Models\BaseModel;
+use Engelsystem\Models\User\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 
 /**
- * @property integer                                                                 $id
- * @property string                                                                  $name
- * @property string|null                                                             $description
- * @property \Carbon\Carbon                                                          $created_at
- * @property \Carbon\Carbon                                                          $updated_at
+ * @property integer                             $id
+ * @property string                              $name
+ * @property string|null                         $description
+ * @property Carbon                              $created_at
+ * @property Carbon                              $updated_at
  *
- * @property-read \Illuminate\Database\Query\Builder|\Engelsystem\Models\Auth\Role[] $roles
- * @property-read \Illuminate\Database\Query\Builder|\Engelsystem\Models\User\User[] $users
+ * @property-read QueryBuilder|Collection|Role[] $roles
+ * @property-read QueryBuilder|Collection|User[] $users
  *
- * @method static \Illuminate\Database\Query\Builder|\Engelsystem\Models\User\User   whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\Engelsystem\Models\User\User[] whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\Engelsystem\Models\User\User[] whereDescription($value)
- * @method static \Illuminate\Database\Query\Builder|\Engelsystem\Models\User\User[] whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Engelsystem\Models\User\User[] whereUpdatedAt($value)
+ * @method static QueryBuilder|Permission              whereId($value)
+ * @method static QueryBuilder|Collection|Permission[] whereName($value)
+ * @method static QueryBuilder|Collection|Permission[] whereDescription($value)
+ * @method static QueryBuilder|Collection|Permission[] whereCreatedAt($value)
+ * @method static QueryBuilder|Collection|Permission[] whereUpdatedAt($value)
  */
 class Permission extends BaseModel
 {

@@ -2,40 +2,44 @@
 
 namespace Engelsystem\Models\User;
 
+use Carbon\Carbon;
+use Engelsystem\Models\Auth\Permission;
 use Engelsystem\Models\Auth\Role;
 use Engelsystem\Models\BaseModel;
 use Engelsystem\Models\Team;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 
 /**
- * @property integer                                                                       $id
- * @property string                                                                        $name
- * @property string                                                                        $email
- * @property string                                                                        $password
- * @property string                                                                        $api_key
- * @property \Carbon\Carbon|null                                                           $last_login_at
- * @property \Carbon\Carbon                                                                $created_at
- * @property \Carbon\Carbon                                                                $updated_at
+ * @property integer                                   $id
+ * @property string                                    $name
+ * @property string                                    $email
+ * @property string                                    $password
+ * @property string                                    $api_key
+ * @property Carbon|null                               $last_login_at
+ * @property Carbon                                    $created_at
+ * @property Carbon                                    $updated_at
  *
- * @property-read \Illuminate\Database\Query\Builder|\Engelsystem\Models\User\Contact      $contact
- * @property-read \Illuminate\Database\Query\Builder|\Engelsystem\Models\User\PersonalData $personalData
- * @property-read \Illuminate\Database\Query\Builder|\Engelsystem\Models\User\Settings     $settings
- * @property-read \Illuminate\Database\Query\Builder|\Engelsystem\Models\User\State        $state
- * @property-read \Illuminate\Database\Query\Builder|\Engelsystem\Models\Auth\Permission[] $permissions
- * @property-read \Illuminate\Database\Query\Builder|\Engelsystem\Models\Auth\Role[]       $roles
- * @property-read \Illuminate\Database\Query\Builder|\Engelsystem\Models\Team[]            $supports
- * @property-read \Illuminate\Database\Query\Builder|\Engelsystem\Models\Team[]            $teams
+ * @property-read QueryBuilder|Contact                 $contact
+ * @property-read QueryBuilder|PersonalData            $personalData
+ * @property-read QueryBuilder|Settings                $settings
+ * @property-read QueryBuilder|State                   $state
+ * @property-read QueryBuilder|Collection|Permission[] $permissions
+ * @property-read QueryBuilder|Collection|Role[]       $roles
+ * @property-read QueryBuilder|Collection|Team[]       $supports
+ * @property-read QueryBuilder|Collection|Team[]       $teams
  *
- * @method static \Illuminate\Database\Query\Builder|\Engelsystem\Models\User\User   whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\Engelsystem\Models\User\User[] whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\Engelsystem\Models\User\User[] whereEmail($value)
- * @method static \Illuminate\Database\Query\Builder|\Engelsystem\Models\User\User[] wherePassword($value)
- * @method static \Illuminate\Database\Query\Builder|\Engelsystem\Models\User\User[] whereApiKey($value)
- * @method static \Illuminate\Database\Query\Builder|\Engelsystem\Models\User\User[] whereLastLoginAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Engelsystem\Models\User\User[] whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Engelsystem\Models\User\User[] whereUpdatedAt($value)
+ * @method static QueryBuilder|User              whereId($value)
+ * @method static QueryBuilder|Collection|User[] whereName($value)
+ * @method static QueryBuilder|Collection|User[] whereEmail($value)
+ * @method static QueryBuilder|Collection|User[] wherePassword($value)
+ * @method static QueryBuilder|Collection|User[] whereApiKey($value)
+ * @method static QueryBuilder|Collection|User[] whereLastLoginAt($value)
+ * @method static QueryBuilder|Collection|User[] whereCreatedAt($value)
+ * @method static QueryBuilder|Collection|User[] whereUpdatedAt($value)
  */
 class User extends BaseModel
 {

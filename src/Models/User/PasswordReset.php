@@ -2,12 +2,16 @@
 
 namespace Engelsystem\Models\User;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Query\Builder as QueryBuilder;
+
 /**
- * @property string              $token
- * @property \Carbon\Carbon|null $created_at
+ * @property string      $token
+ * @property Carbon|null $created_at
  *
- * @method static \Illuminate\Database\Query\Builder|\Engelsystem\Models\User\PasswordReset[] whereToken($value)
- * @method static \Illuminate\Database\Query\Builder|\Engelsystem\Models\User\PasswordReset[] whereCreatedAt($value)
+ * @method static QueryBuilder|Collection|PasswordReset[] whereToken($value)
+ * @method static QueryBuilder|Collection|PasswordReset[] whereCreatedAt($value)
  */
 class PasswordReset extends HasUserModel
 {

@@ -4,13 +4,14 @@ namespace Engelsystem\Models\User;
 
 use Engelsystem\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 
 /**
- * @property integer                                                               $user_id
+ * @property integer                $user_id
  *
- * @property-read \Illuminate\Database\Query\Builder|\Engelsystem\Models\User\User $user
+ * @property-read QueryBuilder|User $user
  *
- * @method static \Illuminate\Database\Query\Builder|static whereUserId($value)
+ * @method static QueryBuilder|static whereUserId($value)
  */
 abstract class HasUserModel extends BaseModel
 {
