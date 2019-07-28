@@ -45,6 +45,7 @@ trait HasDatabase
                 ['migration' => '2018_01_01_000004_cleanup_group_privileges'],
                 ['migration' => '2018_01_01_000005_add_angel_supporter_permissions'],
                 ['migration' => '2018_12_27_000000_fix_missing_arrival_dates'],
+                ['migration' => '2019_07_21_000000_fix_old_character_set'],
             ]);
 
         $migration->run(__DIR__ . '/../../db/migrations');
