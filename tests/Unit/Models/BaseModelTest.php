@@ -3,9 +3,9 @@
 namespace Engelsystem\Test\Unit\Models;
 
 use Engelsystem\Test\Unit\Models\Stub\BaseModelImplementation;
+use Engelsystem\Test\Unit\TestCase;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
 
 class BaseModelTest extends TestCase
 {

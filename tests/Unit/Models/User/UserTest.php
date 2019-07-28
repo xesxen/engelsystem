@@ -9,13 +9,11 @@ use Engelsystem\Models\User\PersonalData;
 use Engelsystem\Models\User\Settings;
 use Engelsystem\Models\User\State;
 use Engelsystem\Models\User\User;
-use Engelsystem\Test\Unit\HasDatabase;
-use PHPUnit\Framework\TestCase;
+use Engelsystem\Test\Unit\Models\ModelTest;
 
-class UserTest extends TestCase
+class UserTest extends ModelTest
 {
     use ArraySubsetAsserts;
-    use HasDatabase;
 
     protected $data = [
         'name'     => 'lorem',
@@ -88,13 +86,5 @@ class UserTest extends TestCase
             ->save();
 
         $this->assertArraySubset($data, (array)$user->{$name}->attributesToArray());
-    }
-
-    /**
-     * Prepare test
-     */
-    protected function setUp(): void
-    {
-        $this->initDatabase();
     }
 }

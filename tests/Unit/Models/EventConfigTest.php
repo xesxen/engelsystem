@@ -4,13 +4,9 @@ namespace Engelsystem\Test\Unit\Models;
 
 use Carbon\Carbon;
 use Engelsystem\Models\EventConfig;
-use Engelsystem\Test\Unit\HasDatabase;
-use PHPUnit\Framework\TestCase;
 
-class EventConfigTest extends TestCase
+class EventConfigTest extends ModelTest
 {
-    use HasDatabase;
-
     /**
      * @covers \Engelsystem\Models\EventConfig::setValueAttribute
      */
@@ -77,7 +73,8 @@ class EventConfigTest extends TestCase
             ->save();
         $this->assertEquals(
             '2010-11-11 20:22',
-            ($this->getEventConfig())->find('event_start')
+            ($this->getEventConfig())
+                ->find('event_start')
                 ->setValueCast('event_start', 'datetime')
                 ->value
                 ->format('Y-m-d H:i')
@@ -102,7 +99,8 @@ class EventConfigTest extends TestCase
      */
     protected function getEventConfig()
     {
-        return new class extends EventConfig {
+        return new class extends EventConfig
+        {
             /**
              * @param string $value
              * @param string $type
@@ -115,13 +113,5 @@ class EventConfigTest extends TestCase
                 return $this;
             }
         };
-    }
-
-    /**
-     * Prepare test
-     */
-    protected function setUp(): void
-    {
-        $this->initDatabase();
     }
 }

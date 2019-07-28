@@ -3,14 +3,10 @@
 namespace Engelsystem\Test\Unit\Models;
 
 use Engelsystem\Models\LogEntry;
-use Engelsystem\Test\Unit\HasDatabase;
-use PHPUnit\Framework\TestCase;
 use Psr\Log\LogLevel;
 
-class LogEntryTest extends TestCase
+class LogEntryTest extends ModelTest
 {
-    use HasDatabase;
-
     /**
      * @covers \Engelsystem\Models\LogEntry::filter
      */
@@ -31,13 +27,5 @@ class LogEntryTest extends TestCase
         $this->assertCount(7, LogEntry::filter());
         $this->assertCount(3, LogEntry::filter(LogLevel::INFO));
         $this->assertCount(1, LogEntry::filter('Oops'));
-    }
-
-    /**
-     * Prepare test
-     */
-    protected function setUp(): void
-    {
-        $this->initDatabase();
     }
 }
