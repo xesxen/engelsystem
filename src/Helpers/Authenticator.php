@@ -29,7 +29,7 @@ class Authenticator
     protected $passwordAlgorithm = PASSWORD_DEFAULT;
 
     /** @var int */
-    protected $guestRole = 10;
+    protected $guestRole = 1;
 
     /**
      * @param ServerRequestInterface $request

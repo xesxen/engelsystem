@@ -132,7 +132,7 @@ class AuthenticatorTest extends ServiceProviderTest
             ->getMock();
         $auth->expects($this->exactly(1))
             ->method('getPermissionsByGroup')
-            ->with(10)
+            ->with(1)
             ->willReturn([]);
         $auth->expects($this->exactly(1))
             ->method('getPermissionsByUser')

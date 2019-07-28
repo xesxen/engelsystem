@@ -33,6 +33,7 @@
         "psr/http-server-middleware": "^1.0",
         "psr/log": "^1.1",
         "respect/validation": "^1.1",
+        "staudenmeir/eloquent-has-many-deep": "^1.8",
         "swiftmailer/swiftmailer": "^6.2",
         "symfony/http-foundation": "^4.3",
         "symfony/psr-http-message-bridge": "^1.2",

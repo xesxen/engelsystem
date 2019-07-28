@@ -1,6 +1,6 @@
 <?php
 
-namespace Engelsystem\Test\Unit\Models;
+namespace Engelsystem\Test\Unit\Models\User;
 
 use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 use Engelsystem\Models\User\Contact;
@@ -9,12 +9,13 @@ use Engelsystem\Models\User\PersonalData;
 use Engelsystem\Models\User\Settings;
 use Engelsystem\Models\User\State;
 use Engelsystem\Models\User\User;
-use Engelsystem\Test\Unit\Models\ModelTest;
+use Engelsystem\Test\Unit\Models\Auth\AuthModelTest;
 
-class UserTest extends ModelTest
+class UserTest extends AuthModelTest
 {
     use ArraySubsetAsserts;
 
+    /** @var array */
     protected $data = [
         'name'     => 'lorem',
         'password' => '',
@@ -86,5 +87,70 @@ class UserTest extends ModelTest
             ->save();
 
         $this->assertArraySubset($data, (array)$user->{$name}->attributesToArray());
+    }
+
+    /**
+     * @covers \Engelsystem\Models\User\User::permissions
+     */
+    public function testPermissions()
+    {
+        $permission = $this->getPermission();
+        $role = $this->getRole($permission);
+        $team = $this->getTeam($role);
+
+        $user = new User($this->data);
+        $user->save();
+        $user->teams()->attach($team);
+
+        $this->assertEquals('foo.bar', $user->permissions()->first()->name);
+    }
+
+    /**
+     * @covers \Engelsystem\Models\User\User::roles
+     */
+    public function testRoles()
+    {
+        $role = $this->getRole();
+        $role2 = $this->getRole([], ['name' => 'Foo Role']);
+        $team = $this->getTeam([$role, $role2]);
+
+        $user = new User($this->data);
+        $user->save();
+        $user->teams()->attach($team);
+
+        $this->assertCount(2, $user->roles);
+        $this->assertEquals('Test Role', $user->roles()->get()->first()->name);
+    }
+
+    /**
+     * @covers \Engelsystem\Models\User\User::supports
+     */
+    public function testSupports()
+    {
+        $team = $this->getTeam();
+
+        $user = new User($this->data);
+        $user->save();
+        $user->teams()->attach($team);
+        $user->supports()->attach($team);
+
+        $this->assertEquals('Test Team', $user->supports()->get()->first()->name);
+    }
+
+    /**
+     * @covers \Engelsystem\Models\User\User::teams
+     */
+    public function testTeams()
+    {
+        $team = $this->getTeam();
+        $team2 = $this->getTeam([], ['name' => 'Another Team']);
+
+        $user = new User($this->data);
+        $user->save();
+        $user->teams()->attach($team);
+        $user->teams()->attach($team2);
+
+        $this->assertCount(2, $user->teams);
+        $this->assertEquals('Test Team', $user->teams()->get()->first()->name);
     }
 }

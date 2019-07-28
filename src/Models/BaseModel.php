@@ -5,9 +5,12 @@ namespace Engelsystem\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships as HasManyDeep;
 
 abstract class BaseModel extends Model
 {
+    use HasManyDeep;
+
     /** @var bool Disable timestamps by default because of "Datensparsamkeit" */
     public $timestamps = false;
 
