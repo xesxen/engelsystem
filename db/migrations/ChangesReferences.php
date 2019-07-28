@@ -3,6 +3,7 @@
 namespace Engelsystem\Migrations;
 
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Schema\Builder as SchemaBuilder;
 use stdClass;
 
 trait ChangesReferences
@@ -14,24 +15,30 @@ trait ChangesReferences
      * @param string $targetColumn
      * @param string $type
      */
-    protected function changeReferences($fromTable, $fromColumn, $targetTable, $targetColumn, $type)
+    protected function changeReferences($fromTable, $fromColumn, $targetTable, $targetColumn, $type = 'unsignedInteger')
     {
         $references = $this->getReferencingTables($fromTable, $fromColumn);
 
         foreach ($references as $reference) {
             /** @var stdClass $reference */
-            $this->schema->table($reference->table, function (Blueprint $table) use ($reference) {
+            /** @var SchemaBuilder $schema */
+            $schema = $this->schema;
+
+            $schema->table($reference->table, function (Blueprint $table) use ($reference) {
                 $table->dropForeign($reference->constraint);
             });
 
-            $this->schema->table($reference->table,
+            $schema->table(
+                $reference->table,
                 function (Blueprint $table) use ($reference, $targetTable, $targetColumn, $type) {
                     $table->{$type}($reference->column)->change();
 
                     $table->foreign($reference->column)
                         ->references($targetColumn)->on($targetTable)
+                        ->onUpdate('cascade')
                         ->onDelete('cascade');
-                });
+                }
+            );
         }
     }
 
@@ -42,8 +49,10 @@ trait ChangesReferences
      */
     protected function getReferencingTables($table, $column): array
     {
-        return $this->schema
-            ->getConnection()
+        /** @var SchemaBuilder $schema */
+        $schema = $this->schema;
+
+        return $schema->getConnection()
             ->select(
                 '
                     SELECT
@@ -56,7 +65,7 @@ trait ChangesReferences
                     AND REFERENCED_COLUMN_NAME = ?
                 ',
                 [
-                    $this->schema->getConnection()->getDatabaseName(),
+                    $schema->getConnection()->getDatabaseName(),
                     $table,
                     $column,
                 ]
