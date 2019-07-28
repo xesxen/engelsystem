@@ -57,7 +57,7 @@ function admin_groups()
     } else {
         switch ($request->input('action')) {
             case 'edit':
-                if ($request->has('id') && preg_match('/^-\d{1,11}$/', $request->input('id'))) {
+                if ($request->has('id') && preg_match('/^\d{1,11}$/', $request->input('id'))) {
                     $group_id = $request->input('id');
                 } else {
                     return error('Incomplete call, missing Groups ID.', true);
@@ -113,7 +113,7 @@ function admin_groups()
             case 'save':
                 if (
                     $request->has('id')
-                    && preg_match('/^-\d{1,11}$/', $request->input('id'))
+                    && preg_match('/^\d{1,11}$/', $request->input('id'))
                     && $request->hasPostData('submit')
                 ) {
                     $group_id = $request->input('id');
